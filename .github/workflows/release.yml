@@ -5,6 +5,8 @@ on:
     tags:
       - '*' # Запускается при создании нового тега (релиза)
 
+permissions: write-all  # ✅ Добавляем полные права для загрузки в Releases
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -23,3 +25,5 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: free-vpn-chrome-extension.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # ✅ Передаем токен для авторизации
