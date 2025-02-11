@@ -5,11 +5,6 @@
  [![Free Proxy](https://github.com/seojacky/free-vpn-chrome-extension/blob/master/Free-Web-Proxies.png)](https://www.webshare.io/?referral_code=cqjv56e3hysl)
 
 
-
-
-[![Download extension](https://img.shields.io/badge/Download-ZIP-blue?style=for-the-badge&logo=github)](https://github.com/seojacky/free-vpn-chrome-extension/releases/latest/download/free-vpn-chrome-extension.zip)
-
-
 ## ✅ Features:
 
 - ✔️ Free and easy-to-use VPN proxy manager  
