@@ -12,7 +12,7 @@
 - ✔️ Works with all websites and streaming services  
 - ✔️ No logging, 100% private browsing  
 
-🔗 Get Started: Installation Guide | Download Now
+
 
 ## **Step-by-Step Installation Guide**  
 Follow these simple steps to install the extension in **Google Chrome** and get **10 free proxies!**  
