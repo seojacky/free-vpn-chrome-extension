@@ -53,4 +53,6 @@ To start using the **VPN extension**, get **10 free SOCKS5 proxies** here:
 
 ## 🎯 Done! You Now Have a Free VPN in Chrome  
 You can **bypass geo-restrictions, change your IP address, and stay anonymous online!**  
+[![Free Proxy](https://github.com/seojacky/free-vpn-chrome-extension/raw/master/webshare-free-proxy-1200x350.png)](https://www.webshare.io/?referral_code=cqjv56e3hysl)
+
 
