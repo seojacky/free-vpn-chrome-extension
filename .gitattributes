@@ -1,5 +1,19 @@
+# Exclude unnecessary files from ZIP
 README.md export-ignore
 LICENSE export-ignore
 .gitattributes export-ignore
 .github/ export-ignore
 docs/ export-ignore
+
+# Exclude all default files
+* export-ignore
+
+# Leave only the necessary files
+!icons/
+!background.js
+!functions.js
+!manifest.json
+!options.html
+!options.js
+!popup.html
+!popup.js
