@@ -46,7 +46,7 @@ To start using the **VPN extension**, get **10 free SOCKS5 proxies** here:
 3. Choose the proxy mode (**use all traffic, exclusions, or specific sites only**).  
 4. Save settings and enable the proxy!
 
-
+[![How Add Proxy List](https://github.com/seojacky/free-vpn-chrome-extension/blob/master/How-Add-Proxy-List.png)]
 
 ---
 
