@@ -1,0 +1,25 @@
+name: Create ZIP Release
+
+on:
+  push:
+    tags:
+      - '*' # Запускается при создании нового тега (релиза)
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Create ZIP without nested folders
+        run: |
+          mkdir package
+          cp -r icons background.js functions.js manifest.json options.html options.js popup.html popup.js package/
+          cd package && zip -r ../free-vpn-chrome-extension.zip .
+
+      - name: Upload ZIP to Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: free-vpn-chrome-extension.zip
