@@ -13,7 +13,7 @@
 - ✔️ No logging, 100% private browsing  
 
 
-[![Free Chrome VPN extension](https://github.com/seojacky/free-vpn-chrome-extension/blob/master/Free-Chrome-VPN-extension.png)]
+![Free Chrome VPN extension](https://github.com/seojacky/free-vpn-chrome-extension/blob/master/Free-Chrome-VPN-extension.png)
 
 ## **Step-by-Step Installation Guide**  
 Follow these simple steps to install the extension in **Google Chrome** and get **10 free proxies!**  
@@ -47,7 +47,7 @@ To start using the **VPN extension**, get **10 free SOCKS5 proxies** here:
 3. Choose the proxy mode (**use all traffic, exclusions, or specific sites only**).  
 4. Save settings and enable the proxy!
 
-[![How Add Proxy List](https://github.com/seojacky/free-vpn-chrome-extension/blob/master/How-Add-Proxy-List.png)]
+![How Add Proxy List](https://github.com/seojacky/free-vpn-chrome-extension/blob/master/How-Add-Proxy-List.png)
 
 ---
 
