@@ -19,8 +19,6 @@ Follow these simple steps to install the extension in **Google Chrome** and get 
 ## **1️⃣ Download the Extension from GitHub**  
 1. Go to the **GitHub repository**:  
    🔗 [Download the extension](https://github.com/seojacky/free-vpn-chrome-extension/archive/refs/heads/master.zip)
-
-    🔗 [Download the extension](https://github.com/seojacky/free-vpn-chrome-extension/releases/latest)
    
 3. Click **Code** → **Download ZIP**.  
 4. Extract the downloaded ZIP file to a convenient location on your computer.  
@@ -41,7 +39,7 @@ Follow these simple steps to install the extension in **Google Chrome** and get 
 To start using the **VPN extension**, get **10 free SOCKS5 proxies** here:  
 🔗 [**Get Free Proxies**](https://www.webshare.io/?referral_code=cqjv56e3hysl)  
 
-💡 **How to Add Proxies:**  
+###💡 How to Add Proxies: 
 1. Open the **extension settings**.  
 2. Paste the proxies you received in this format:  
    ```host:port:username:password```  
@@ -50,9 +48,6 @@ To start using the **VPN extension**, get **10 free SOCKS5 proxies** here:
 
 ---
 
-## **🎯 Done! You Now Have a Free VPN in Chrome**  
+## 🎯 Done! You Now Have a Free VPN in Chrome  
 You can **bypass geo-restrictions, change your IP address, and stay anonymous online!**  
 
-📢 **Have questions or suggestions? Open an issue on GitHub or create a pull request!**  
-
-🔗 **Support & Updates:** [GitHub](#) | [Website](#) | [Twitter](#) 🚀
