@@ -13,7 +13,7 @@
 - ✔️ No logging, 100% private browsing  
 
 
-[![Free Chrome VPN extension]()]
+[![Free Chrome VPN extension](https://github.com/seojacky/free-vpn-chrome-extension/blob/master/Free-Chrome-VPN-extension.png)]
 
 ## **Step-by-Step Installation Guide**  
 Follow these simple steps to install the extension in **Google Chrome** and get **10 free proxies!**  
