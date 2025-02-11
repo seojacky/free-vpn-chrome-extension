@@ -1,0 +1,32 @@
+{
+    "manifest_version": 2,
+    "name": "SOCKS5 Proxy Manager",
+    "version": "2.4",
+    "description": "Simple SOCKS5 proxy manager",
+    "permissions": [
+        "proxy",
+        "storage",
+        "webRequest",
+        "webRequestBlocking",
+        "notifications",
+        "<all_urls>"
+    ],
+    "browser_action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "icons/icon16.png",
+            "48": "icons/icon48.png",
+            "128": "icons/icon128.png"
+        }
+    },
+    "icons": {
+        "16": "icons/icon16.png",
+        "48": "icons/icon48.png",
+        "128": "icons/icon128.png"
+    },
+    "background": {
+        "scripts": ["functions.js", "background.js"],
+        "persistent": true
+    },
+    "options_page": "options.html"
+}

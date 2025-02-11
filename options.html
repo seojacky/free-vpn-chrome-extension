@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+    }
+    .radio-group {
+      margin-bottom: 20px;
+    }
+    .radio-option {
+      margin: 10px 0;
+    }
+    textarea {
+      width: 100%;
+      height: 200px;
+      margin: 10px 0;
+      padding: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .section {
+      margin-bottom: 30px;
+    }
+    .promo {
+      font-size: 16px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .promo a {
+      color: #007BFF;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .promo a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <p class="promo">
+    Получи <a href="https://www.webshare.io/?referral_code=cqjv56e3hysl" target="_blank">10 бесплатных прокси</a>, чтобы добавить в расширение
+  </p>
+
+  <h2>Proxy Settings</h2>
+  
+  <div class="section">
+    <h3>Proxy List</h3>
+    <p>Enter one proxy per line in format: host:port:username:password</p>
+    <textarea id="proxyList" placeholder="Example:
+198.23.239.134:6540:dnrrfarc:cvbnihiajzzt
+207.244.217.165:6712:dnrrfarc:cvbnihiajzzt"></textarea>
+  </div>
+
+  <div class="radio-group section">
+    <div class="radio-option">
+      <input type="radio" id="proxyOnly" name="proxyMode" value="proxyOnly">
+      <label for="proxyOnly">Proxy ONLY from list</label>
+    </div>
+    <div class="radio-option">
+      <input type="radio" id="proxyExcept" name="proxyMode" value="proxyExcept">
+      <label for="proxyExcept">Proxy all EXCEPT list</label>
+    </div>
+    <div class="radio-option">
+      <input type="radio" id="proxyAll" name="proxyMode" value="proxyAll">
+      <label for="proxyAll">ALL through VPN</label>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Domain List</h3>
+    <p>Enter one domain per line:</p>
+    <textarea id="domainList" placeholder="Example:
+mail.ru
+vk.com"></textarea>
+  </div>
+
+  <button id="saveSettings">Save Settings</button>
+
+  <script src="functions.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>
