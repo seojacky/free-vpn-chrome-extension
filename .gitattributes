@@ -1,4 +1,5 @@
 README.md export-ignore
 LICENSE export-ignore
+.gitattributes export-ignore
 .github/ export-ignore
 docs/ export-ignore
