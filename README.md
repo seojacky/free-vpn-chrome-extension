@@ -1,14 +1,10 @@
 # Free VPN Chrome extension | Proxy Manager by seojacky
-💡 Chrome Proxy Manager is a lightweight and efficient Free VPN Chrome extension.  This extension allows you to seamlessly switch between SOCKS5, HTTP, and HTTPS proxies, helping you bypass geo-restrictions and access blocked content securely.
-
- [![Download Chrome VPN Extension](https://github.com/seojacky/free-vpn-chrome-extension/blob/master/Download-extension.png)](https://github.com/seojacky/free-vpn-chrome-extension/releases/download/latest/free-vpn-chrome-extension.zip)      [![Free Proxy](https://github.com/seojacky/free-vpn-chrome-extension/blob/master/Free-Web-Proxies.png)](https://www.webshare.io/?referral_code=cqjv56e3hysl)
+💡 Chrome Proxy Manager is a lightweight and efficient Free VPN Chrome extension.  This extension allows you to seamlessly switch between SOCKS5, HTTP, and HTTPS proxies, helping you bypass geo-restrictions and access blocked content securely. 
 
  <a href="https://github.com/seojacky/free-vpn-chrome-extension/releases/download/latest/free-vpn-chrome-extension.zip" target="_blank" rel="noopener noreferrer">
-  <img src="https://github.com/seojacky/free-vpn-chrome-extension/blob/master/Download-extension.png" alt="How Add Proxy List">
+  <img src="https://github.com/seojacky/free-vpn-chrome-extension/blob/master/Download-extension.png" alt="Download Chrome VPN Extension">
 </a>
-<a href="https://www.webshare.io/?referral_code=cqjv56e3hysl" target="_blank" rel="noopener noreferrer">
-  <img src="https://github.com/seojacky/free-vpn-chrome-extension/blob/master/Free-Web-Proxies.png" alt="Free Proxy">
-</a>
+
 
 
  
