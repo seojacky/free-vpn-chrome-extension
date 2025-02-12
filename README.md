@@ -3,6 +3,11 @@
 
  [![Download Chrome VPN Extension](https://github.com/seojacky/free-vpn-chrome-extension/blob/master/Download-extension.png)](https://github.com/seojacky/free-vpn-chrome-extension/releases/download/latest/free-vpn-chrome-extension.zip)      [![Free Proxy](https://github.com/seojacky/free-vpn-chrome-extension/blob/master/Free-Web-Proxies.png)](https://www.webshare.io/?referral_code=cqjv56e3hysl)
 
+ <a href="https://github.com/seojacky/free-vpn-chrome-extension/releases/download/latest/free-vpn-chrome-extension.zip" target="_blank" rel="noopener noreferrer">
+  <img src="https://github.com/seojacky/free-vpn-chrome-extension/blob/master/Download-extension.png" alt="How Add Proxy List">
+</a>
+
+
  
 ## ✅ Features:     
 
