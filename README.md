@@ -3,14 +3,13 @@
 
 ## 📥 Download the Extension
 
-[![Download Chrome VPN Extension](https://github.com/seojacky/free-vpn-chrome-extension/blob/master/Download-extension.png)](https://github.com/seojacky/free-vpn-chrome-extension/releases/download/latest/free-chrome-vpn-manager-by-seojacky.zip)
-
-[![GitHub release downloads](https://img.shields.io/github/downloads/seojacky/free-vpn-chrome-extension/latest/total?label=Latest%20Release%20Downloads&style=flat-square)](https://github.com/seojacky/free-vpn-chrome-extension/releases)
-
 
  <a href="https://github.com/seojacky/free-vpn-chrome-extension/releases/download/latest/free-chrome-vpn-manager-by-seojacky.zip" target="_blank" rel="noopener noreferrer">
   <img src="https://github.com/seojacky/free-vpn-chrome-extension/blob/master/Download-extension.png" alt="Download Chrome VPN Extension">
 </a>
+
+[![GitHub release](https://img.shields.io/github/v/release/seojacky/free-vpn-chrome-extension?style=flat-square)](https://github.com/seojacky/free-vpn-chrome-extension/releases)
+
 
 
 
