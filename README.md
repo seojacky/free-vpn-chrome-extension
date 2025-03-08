@@ -1,7 +1,7 @@
 # Free VPN Chrome extension | Free Chrome VPN Manager by seojacky
 💡 **Free Chrome VPN Manager by seojacky** is a lightweight and efficient Free VPN Chrome extension.  This extension allows you to seamlessly switch between SOCKS5, HTTP, and HTTPS proxies, helping you bypass geo-restrictions and access blocked content securely. 
 
- <a href="https://github.com/seojacky/free-vpn-chrome-extension/releases/download/latest/free-vpn-chrome-extension.zip" target="_blank" rel="noopener noreferrer">
+ <a href="https://github.com/seojacky/free-vpn-chrome-extension/releases/download/latest/free-chrome-vpn-manager-by-seojacky.zip" target="_blank" rel="noopener noreferrer">
   <img src="https://github.com/seojacky/free-vpn-chrome-extension/blob/master/Download-extension.png" alt="Download Chrome VPN Extension">
 </a>
 
@@ -25,7 +25,7 @@ Follow these simple steps to install the extension in **Google Chrome** and get 
 ---
 
 ## **1️⃣ Download the Extension from GitHub**  
-1. Go to the **GitHub repository**:  🔗 [Download the extension](https://github.com/seojacky/free-vpn-chrome-extension/releases/download/latest/free-vpn-chrome-extension.zip)   
+1. Go to the **GitHub repository**:  🔗 [Download the extension](https://github.com/seojacky/free-vpn-chrome-extension/releases/download/latest/free-chrome-vpn-manager-by-seojacky.zip)   
 2. Extract the downloaded ZIP file to a convenient location on your computer.  
 
 ---
