@@ -9,6 +9,7 @@
 </a>
 
 [![GitHub release](https://img.shields.io/github/v/release/seojacky/free-vpn-chrome-extension?style=flat-square)](https://github.com/seojacky/free-vpn-chrome-extension/releases)
+[![GitHub release downloads](https://img.shields.io/github/downloads/seojacky/free-vpn-chrome-extension/latest/total?label=Latest%20Release%20Downloads&style=flat-square)](https://github.com/seojacky/free-vpn-chrome-extension/releases)
 
 
 
