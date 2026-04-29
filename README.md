@@ -1,6 +1,23 @@
 # Free VPN Chrome extension | Free Chrome VPN Manager by seojacky
 💡 **Free Chrome VPN Manager by seojacky** is a lightweight and efficient Free VPN Chrome extension.  This extension allows you to seamlessly switch between SOCKS5, HTTP, and HTTPS proxies, helping you bypass geo-restrictions and access blocked content securely. 
 
+> [!WARNING]
+> **Chrome 139+ users:** This extension uses Manifest V2 and requires a workaround to run in Chrome.
+>
+> **Step 1.** Right-click your Chrome shortcut → Properties → find the **Target** field.
+>
+> **Step 2.** After `chrome.exe"` add a space and paste:
+> ```
+> --disable-features=ExtensionManifestV2Unsupported,ExtensionManifestV2Disabled
+> ```
+> Example: `"C:\Program Files\Google\Chrome\Application\chrome.exe" --disable-features=ExtensionManifestV2Unsupported,ExtensionManifestV2Disabled`
+>
+> **Step 3.** Close Chrome completely, relaunch via this shortcut, then install the extension.
+>
+> ⚠️ **After installation:** Go to extension **Options** and set **Proxy Mode** to `Proxy ONLY from list`, otherwise Chrome will immediately prompt for proxy credentials.
+>
+> **Opera browser** works with this extension without any workaround.
+
 ## 📥 Download the Extension
 
 
