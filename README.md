@@ -12,7 +12,7 @@
 > ```
 > Example: `"C:\Program Files\Google\Chrome\Application\chrome.exe" --disable-features=ExtensionManifestV2Unsupported,ExtensionManifestV2Disabled`
 >
-> **Step 3.** Close Chrome completely, relaunch via this shortcut, then install the extension.
+> **Step 3.** Close Chrome completely, relaunch via this shortcut. Then go to `chrome://extensions/`, enable **Developer Mode** (top-right toggle), click **Load unpacked** and select the extracted extension folder.
 >
 > ⚠️ **After installation:** Go to extension **Options** and set **Proxy Mode** to `Proxy ONLY from list`, otherwise Chrome will immediately prompt for proxy credentials.
 >
