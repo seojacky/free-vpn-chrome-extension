@@ -1,9 +1,9 @@
 # Free VPN Chrome extension | Free Chrome VPN Manager by seojacky
 
-
-<a href="#-download-the-extension">Download</a>
-<a href="">Step-by-Step Installation Guide</a>
-
+<ul>
+<li><a href="#-download-the-extension">Download</a></li>
+<li><a href="#step-by-step-installation-guide">Step-by-Step Installation Guide</a></li>
+</ul>
 
 [![GitHub release](https://img.shields.io/github/v/release/seojacky/free-vpn-chrome-extension?style=flat-square)](https://github.com/seojacky/free-vpn-chrome-extension/releases)
 
