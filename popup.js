@@ -1,50 +1,149 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const toggleButton = document.getElementById('toggleProxy');
-    const proxySelect = document.getElementById('proxySelect');
+document.addEventListener('DOMContentLoaded', async function() {
+    // UI Elements
+    const toggleButton = document.querySelector('.btn-power');
     const settingsButton = document.getElementById('openSettings');
-    
-    // Загружаем список прокси
+    const promoBlock = document.querySelector('.promo');
+    const siteDomainElement = document.querySelector('.site-domain');
+    const statusDot = document.querySelector('.status-dot');
+    const statusText = document.querySelector('.status-text');
+    const customSelect = document.querySelector('.custom-select');
+    const selectedOption = customSelect.querySelector('.selected-option');
+    const optionsContainer = customSelect.querySelector('.options-container');
+    const defaultText = 'Select server';
+
+    // Initial state
+    selectedOption.innerHTML = `${defaultText}<span class="select-arrow"></span>`;
+
+    // Загружаем список прокси и информацию о странах
     const proxyList = localStorage.getItem('proxyList') || '';
-    const proxies = proxyList.split('\n').filter(line => line.trim());
+    const proxyInfoList = JSON.parse(localStorage.getItem('proxyInfoList') || '[]');
     const currentProxyIndex = localStorage.getItem('currentProxyIndex') || '0';
 
-    // Заполняем выпадающий список
-    proxies.forEach((proxy, index) => {
-        const [host, port] = proxy.split(':');
-        const option = document.createElement('option');
-        option.value = index;
-        option.textContent = `${host}:${port}`;
-        option.selected = index.toString() === currentProxyIndex;
-        proxySelect.appendChild(option);
+    // Управляем отображением промо-блока
+    if (proxyInfoList.length > 0) {
+        promoBlock.style.display = 'none';
+    } else {
+        promoBlock.style.display = 'block';
+    }
+
+    // Обработка клика по селектору
+    selectedOption.addEventListener('click', () => {
+        optionsContainer.classList.toggle('show');
     });
 
-    // Проверяем текущее состояние прокси
-    chrome.proxy.settings.get({'incognito': false}, function(config) {
-        try {
-            const isEnabled = config.value.mode === 'pac_script' || config.value.mode === 'fixed_servers';
-            updateButtonState(isEnabled);
-            setIcon(isEnabled ? 'on' : 'off');
-        } catch (error) {
-            console.error('Error checking proxy state:', error);
-            updateButtonState(false);
-            setIcon('off');
+    // Закрытие селектора при клике вне его
+    document.addEventListener('click', (e) => {
+        if (!customSelect.contains(e.target)) {
+            optionsContainer.classList.remove('show');
         }
     });
 
-    // Обработчик открытия настроек
-    settingsButton.addEventListener('click', function() {
+    // Обработчик кнопки настроек
+    settingsButton.addEventListener('click', () => {
         chrome.runtime.openOptionsPage();
-        window.close(); // Закрываем popup после открытия настроек
+        window.close();
     });
 
-    // Обработчик изменения прокси
-    proxySelect.addEventListener('change', function() {
-        const selectedIndex = this.value;
-        const selectedProxy = proxies[selectedIndex];
-        const [host, port, user, pass] = selectedProxy.split(':');
+    // Обработчик кнопки включения/выключения
+    toggleButton.addEventListener('click', () => {
+        const isEnabled = toggleButton.classList.contains('active');
         
-        // Сохраняем выбранный прокси
+        if (isEnabled) {
+            offProxy();
+            setIcon('off');
+            updateButtonState(false);
+            updateVPNStatus(false);
+        } else {
+            const proxy = onProxy();
+            if (proxy) {
+                setIcon('on');
+                updateButtonState(true);
+                updateVPNStatus(true);
+            }
+        }
+    });
+
+    // Функция форматирования отображения прокси
+    function formatProxyDisplay(proxyStr, proxyInfo) {
+        if (!proxyStr) return { type: 'ERROR', displayAddress: 'Not configured' };
+
+        try {
+            let parts = proxyStr.split(':');
+            let host, type;
+
+            if (parts.length === 5) {
+                // Формат с явным указанием типа
+                [type, host] = parts;
+            } else if (parts.length === 4) {
+                // Стандартный формат
+                [host] = parts;
+                type = proxyInfo?.type || 'HTTP';
+            } else {
+                return { type: 'ERROR', displayAddress: 'Invalid format' };
+            }
+
+            return {
+                type: type.toUpperCase(),
+                displayAddress: host
+            };
+        } catch (error) {
+            console.error('Error formatting proxy:', error);
+            return { type: 'ERROR', displayAddress: 'Invalid format' };
+        }
+    }
+
+    // Получаем текущий сайт
+    function updateCurrentSite() {
+        chrome.tabs.query({active: true, lastFocusedWindow: true}, function(tabs) {
+            if (tabs[0] && tabs[0].url) {
+                try {
+                    const url = new URL(tabs[0].url);
+                    if (url.protocol === 'chrome:' || url.protocol === 'chrome-extension:') {
+                        siteDomainElement.textContent = 'Chrome page';
+                    } else {
+                        siteDomainElement.textContent = url.hostname;
+                    }
+                } catch (e) {
+                    console.error('Error parsing URL:', e);
+                    siteDomainElement.textContent = 'Invalid URL';
+                }
+            } else {
+                siteDomainElement.textContent = 'No active tab';
+            }
+        });
+    }
+
+    // Обновляем статус VPN
+    function updateVPNStatus(isEnabled) {
+        if (isEnabled) {
+            statusDot.classList.remove('inactive');
+            statusText.classList.remove('inactive');
+            statusText.classList.add('active');
+            statusText.textContent = 'VPN Active';
+        } else {
+            statusDot.classList.add('inactive');
+            statusText.classList.remove('active');
+            statusText.classList.add('inactive');
+            statusText.textContent = 'VPN Inactive';
+        }
+    }
+
+    // Обработка изменения прокси
+    function handleProxyChange(index) {
+        const proxyInfo = proxyInfoList[index];
+        if (!proxyInfo) return;
+
+        const parts = proxyInfo.proxy.split(':');
+        let host, port, user, pass;
+
+        if (parts.length === 5) {
+            [, host, port, user, pass] = parts;
+        } else {
+            [host, port, user, pass] = parts;
+        }
+
         const proxySetting = {
+            'type': proxyInfo.type,
             'http_host': host,
             'http_port': port,
             'auth': {
@@ -54,39 +153,78 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         };
         localStorage.setItem('proxySetting', JSON.stringify(proxySetting));
-        localStorage.setItem('currentProxyIndex', selectedIndex);
+        localStorage.setItem('currentProxyIndex', index);
 
-        // Если прокси включен, применяем новые настройки
         chrome.proxy.settings.get({'incognito': false}, function(config) {
             if (config.value.mode === 'pac_script') {
                 onProxy();
             }
         });
+    }
+
+    // Обновление состояния кнопки
+    function updateButtonState(isEnabled) {
+        if (isEnabled) {
+            toggleButton.classList.remove('inactive');
+            toggleButton.classList.add('active');
+        } else {
+            toggleButton.classList.remove('active');
+            toggleButton.classList.add('inactive');
+        }
+    }
+
+    // Заполняем список прокси
+    proxyInfoList.forEach((proxyInfo, index) => {
+        const { type, displayAddress } = formatProxyDisplay(proxyInfo.proxy, proxyInfo);
+        if (type === 'ERROR') return;
+
+        const option = document.createElement('div');
+        option.className = 'option';
+        option.innerHTML = `
+            <span class="proxy-type ${type.toLowerCase()}">${type}</span>
+            ${displayAddress}
+            <span class="flag">${proxyInfo.countryInfo?.flag || ''}</span>
+        `;
+        option.dataset.index = index;
+        
+        option.addEventListener('click', () => {
+            selectedOption.innerHTML = option.innerHTML + '<span class="select-arrow"></span>';
+            optionsContainer.classList.remove('show');
+            handleProxyChange(index);
+        });
+        
+        optionsContainer.appendChild(option);
     });
 
-    // Обработчик включения/выключения прокси
-    toggleButton.addEventListener('click', function() {
+    // Установка текущего прокси в селекторе
+    if (proxyInfoList.length > 0) {
+        const currentProxy = proxyInfoList[currentProxyIndex];
+        if (currentProxy) {
+            const { type, displayAddress } = formatProxyDisplay(currentProxy.proxy, currentProxy);
+            selectedOption.innerHTML = `
+                <span class="proxy-type ${type.toLowerCase()}">${type}</span>
+                ${displayAddress}
+                <span class="flag">${currentProxy.countryInfo?.flag || ''}</span>
+                <span class="select-arrow"></span>
+            `;
+        }
+    }
+
+    // Проверяем текущее состояние прокси
+    chrome.proxy.settings.get({'incognito': false}, function(config) {
         try {
-            const isEnabled = toggleButton.classList.contains('enabled');
-            
-            if (isEnabled) {
-                offProxy();
-                setIcon('off');
-                updateButtonState(false);
-            } else {
-                const proxy = onProxy();
-                if (proxy) {
-                    setIcon('on');
-                    updateButtonState(true);
-                }
-            }
+            const isEnabled = config.value.mode === 'pac_script' || config.value.mode === 'fixed_servers';
+            updateButtonState(isEnabled);
+            updateVPNStatus(isEnabled);
+            setIcon(isEnabled ? 'on' : 'off');
         } catch (error) {
-            console.error('Error toggling proxy:', error);
+            console.error('Error checking proxy state:', error);
+            updateButtonState(false);
+            updateVPNStatus(false);
+            setIcon('off');
         }
     });
 
-    function updateButtonState(isEnabled) {
-        toggleButton.textContent = isEnabled ? 'ON' : 'OFF';
-        toggleButton.className = isEnabled ? 'enabled' : 'disabled';
-    }
+    // Инициализация текущего сайта
+    updateCurrentSite();
 });

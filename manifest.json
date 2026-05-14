@@ -1,14 +1,16 @@
 {
     "manifest_version": 2,
-    "name": "SOCKS5 Proxy Manager",
-    "version": "2.4",
-    "description": "Simple SOCKS5 proxy manager",
+    "name": "Free Chrome VPN Manager by seojacky",
+    "version": "2.5",
+    "description": "Simple Proxy Manager by seojacky",
     "permissions": [
         "proxy",
         "storage",
         "webRequest",
         "webRequestBlocking",
         "notifications",
+        "tabs",
+        "activeTab",
         "<all_urls>"
     ],
     "browser_action": {

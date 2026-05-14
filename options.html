@@ -9,17 +9,30 @@
       padding: 20px;
       font-family: Arial, sans-serif;
     }
+	h3 {	
+      margin-top: 0px;
+	}
     .radio-group {
       margin-bottom: 20px;
     }
     .radio-option {
       margin: 10px 0;
+	  display: inline;
+      border: 1px solid grey;
+      border-radius: 5px;
+      padding: 5px;
+      margin: 0 5px;
+    }
+	.radio-option input {
+      vertical-align: text-bottom;
     }
     textarea {
-      width: 100%;
-      height: 200px;
+      width: 95%;
+      min-height: 150px;
       margin: 10px 0;
       padding: 10px;
+      font-family: monospace;
+      font-size: 14px;
     }
     button {
       padding: 10px 20px;
@@ -27,12 +40,74 @@
       color: white;
       border: none;
       cursor: pointer;
+      border-radius: 4px;
     }
     button:hover {
       background-color: #45a049;
     }
+    button:disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+    }
+
+    /* Styles for spoiler */
+    .spoiler {
+      margin: 10px 0;
+    }
+
+    .spoiler-header {
+      background: #70abea;
+      color: white;
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background-color 0.2s ease;
+    }
+
+    .spoiler-header:hover {
+      background: #5b96d6;
+    }
+
+    .spoiler-content {
+      display: none;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 0 0 4px 4px;
+      margin-top: -4px;
+    }
+
+    .spoiler-content button {
+      margin: 5px;
+      padding: 8px 15px;
+    }
+
+    /* Status badge for import/export operations */
+    .status-badge {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+      margin-left: 8px;
+    }
+
+    .status-badge.success {
+      background-color: #d1fae5;
+      color: #065f46;
+    }
+
+    .status-badge.error {
+      background-color: #fee2e2;
+      color: #991b1b;
+    }
+
     .section {
-      margin-bottom: 30px;
+      margin-bottom: 20px;
+      background: #f9f9f9;
+      padding: 20px;
+      border-radius: 8px;
     }
     .promo {
       font-size: 16px;
@@ -47,24 +122,51 @@
     .promo a:hover {
       text-decoration: underline;
     }
+    .format-info {
+      background-color: #e7f3fe;
+      border-left: 3px solid #2196F3;
+      padding: 5px 15px;
+      margin: 10px 0;
+      font-size: 11px;
+    }
+    .format-example {
+      font-family: monospace;
+      background-color: #f5f5f5;
+      padding: 3px 6px;
+      border-radius: 3px;
+    }
+    .note {
+      color: #666;
+      font-size: 11px;
+      margin-top: 5px;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
+<h1><img src="icons/icon32.png" alt="VPN Icon" style="width: 24px;position: relative;top: 4px;"> Proxy Manager by seojacky</h1>
   <p class="promo">
-    Получи <a href="https://www.webshare.io/?referral_code=cqjv56e3hysl" target="_blank">10 бесплатных прокси</a>, чтобы добавить в расширение
+    Get <a href="https://www.webshare.io/?referral_code=cqjv56e3hysl" target="_blank">10 free proxies</a> to add to the extension
   </p>
 
   <h2>Proxy Settings</h2>
   
   <div class="section">
     <h3>Proxy List</h3>
-    <p>Enter one proxy per line in format: host:port:username:password</p>
-    <textarea id="proxyList" placeholder="Example:
+    <div class="format-info">
+      <p>Two formats are supported:</p>
+      <p>1. Standard format: <span class="format-example">host:port:username:password</span></p>
+      <p>2. With type specified: <span class="format-example">type:host:port:username:password</span></p>
+      <p class="note">Type can be 'http' or 'socks5'. If not specified, type will be detected automatically.</p>
+    </div>
+    <textarea id="proxyList" placeholder="Examples:
 198.23.239.134:6540:dnrrfarc:cvbnihiajzzt
-207.244.217.165:6712:dnrrfarc:cvbnihiajzzt"></textarea>
+http:207.244.217.165:6712:dnrrfarc:cvbnihiajzzt
+socks5:64.137.42.112:1080:dnrrfarc:cvbnihiajzzt"></textarea>
   </div>
 
   <div class="radio-group section">
+    <h3>Proxy Mode</h3>
     <div class="radio-option">
       <input type="radio" id="proxyOnly" name="proxyMode" value="proxyOnly">
       <label for="proxyOnly">Proxy ONLY from list</label>
@@ -85,6 +187,19 @@
     <textarea id="domainList" placeholder="Example:
 mail.ru
 vk.com"></textarea>
+
+    <div class="spoiler">
+      <div class="spoiler-header">
+        Import Ready Lists
+        <span class="spoiler-icon">&#9662;</span>
+      </div>
+      <div class="spoiler-content">
+        <button id="importUaList">Import UA List</button>
+        <button id="importRuList">Import RU List (33000+ domains)</button>
+        <button id="importDomainList">Import from File</button>
+        <button id="exportDomainList">Export to File</button>
+      </div>
+    </div>
   </div>
 
   <button id="saveSettings">Save Settings</button>
