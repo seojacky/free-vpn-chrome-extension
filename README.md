@@ -58,7 +58,7 @@ Follow these simple steps to install the extension in **Google Chrome** and get 
 
 ## **1️⃣ Download the Extension from GitHub**  
 1. Go to the **GitHub repository**:  
-   🔗 [Download ZIP](https://github.com/seojacky/free-vpn-chrome-extension/archive/refs/heads/master.zip)  
+   🔗 [Download ZIP](https://github.com/seojacky/free-vpn-chrome-extension/releases/download/latest/free-chrome-vpn-manager-by-seojacky.zip)  
    🔗 [Latest Release](https://github.com/seojacky/free-vpn-chrome-extension/releases/latest)  
 2. Extract the downloaded ZIP file to a convenient location on your computer.  
 
