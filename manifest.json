@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Free Chrome VPN Manager by seojacky",
-    "version": "2.6",
+    "version": "2.7",
     "description": "Simple Proxy Manager by seojacky",
     "permissions": [
         "proxy",
