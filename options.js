@@ -223,12 +223,15 @@ document.addEventListener('DOMContentLoaded', function() {
             const proxyLines = proxies.split('\n').filter(line => line.trim());
             const validProxies = proxyLines.every(line => {
                 const parts = line.split(':');
-                return parts.length === 4 || (parts.length === 5 && 
-                    (parts[0].toLowerCase() === 'http' || parts[0].toLowerCase() === 'socks5'));
+                const type = parts[0].toLowerCase();
+                return parts.length === 2 ||
+                    parts.length === 4 ||
+                    (parts.length === 3 && (type === 'http' || type === 'socks5')) ||
+                    (parts.length === 5 && (type === 'http' || type === 'socks5'));
             });
 
             if (!validProxies) {
-                alert('Invalid proxy format! Please use either:\nhost:port:username:password\nor\ntype:host:port:username:password');
+                alert('Invalid proxy format! Please use one of:\nhost:port\nhost:port:username:password\ntype:host:port\ntype:host:port:username:password\n\n(type = http or socks5)');
                 return;
             }
 
@@ -236,7 +239,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Getting proxy information...');
             const proxyInfoList = await Promise.all(proxyLines.map(async (proxyStr) => {
                 const parts = proxyStr.split(':');
-                const host = parts.length === 5 ? parts[1] : parts[0];
+                const host = (parts.length === 5 || parts.length === 3) ? parts[1] : parts[0];
                 
                 console.log(`Checking proxy ${host}...`);
                 
@@ -262,17 +265,22 @@ document.addEventListener('DOMContentLoaded', function() {
             if (proxyLines.length > 0) {
                 const firstProxy = proxyLines[0];
                 const parts = firstProxy.split(':');
-                const [host, port, user, pass] = parts.length === 5 ? parts.slice(1) : parts;
-                
+                let host, port, user, pass;
+                if (parts.length === 5) {
+                    [, host, port, user, pass] = parts;
+                } else if (parts.length === 3) {
+                    [, host, port] = parts;
+                } else if (parts.length === 4) {
+                    [host, port, user, pass] = parts;
+                } else {
+                    [host, port] = parts;
+                }
+
                 const proxySetting = {
                     'type': proxyInfoList[0].type,
                     'http_host': host,
                     'http_port': port,
-                    'auth': {
-                        'enable': true,
-                        'user': user,
-                        'pass': pass
-                    }
+                    ...(user && pass ? { 'auth': { 'enable': true, 'user': user, 'pass': pass } } : {})
                 };
                 localStorage.setItem('proxySetting', JSON.stringify(proxySetting));
             }

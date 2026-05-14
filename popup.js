@@ -72,10 +72,13 @@ document.addEventListener('DOMContentLoaded', async function() {
             let host, type;
 
             if (parts.length === 5) {
-                // Формат с явным указанием типа
+                [type, host] = parts;
+            } else if (parts.length === 3) {
                 [type, host] = parts;
             } else if (parts.length === 4) {
-                // Стандартный формат
+                [host] = parts;
+                type = proxyInfo?.type || 'HTTP';
+            } else if (parts.length === 2) {
                 [host] = parts;
                 type = proxyInfo?.type || 'HTTP';
             } else {
@@ -138,19 +141,19 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         if (parts.length === 5) {
             [, host, port, user, pass] = parts;
-        } else {
+        } else if (parts.length === 3) {
+            [, host, port] = parts;
+        } else if (parts.length === 4) {
             [host, port, user, pass] = parts;
+        } else {
+            [host, port] = parts;
         }
 
         const proxySetting = {
             'type': proxyInfo.type,
             'http_host': host,
             'http_port': port,
-            'auth': {
-                'enable': true,
-                'user': user,
-                'pass': pass
-            }
+            ...(user && pass ? { 'auth': { 'enable': true, 'user': user, 'pass': pass } } : {})
         };
         localStorage.setItem('proxySetting', JSON.stringify(proxySetting));
         localStorage.setItem('currentProxyIndex', index);

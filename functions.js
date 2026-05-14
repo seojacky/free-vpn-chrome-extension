@@ -6,13 +6,15 @@ function onProxy() {
             .filter(line => line.trim())
             .map(domain => domain.trim().toLowerCase());
 
+        var proxyType = (proxySetting['type'] || 'http').toUpperCase();
         var proxy = {
-            type: 'http',
+            type: proxyType,
             host: proxySetting['http_host'],
             port: proxySetting['http_port']
         };
 
-        var proxyString = `PROXY ${proxy.host}:${proxy.port}`;
+        var pacKeyword = proxyType === 'SOCKS5' ? 'SOCKS5' : 'PROXY';
+        var proxyString = `${pacKeyword} ${proxy.host}:${proxy.port}`;
         var config = {
             mode: "pac_script",
             pacScript: {}
