@@ -230,4 +230,6 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     // Инициализация текущего сайта
     updateCurrentSite();
+
+    document.getElementById('ext-version').textContent = 'v.' + chrome.runtime.getManifest().version;
 });

@@ -141,10 +141,16 @@
       margin-top: 5px;
       font-style: italic;
     }
+    .ext-version {
+      font-size: 13px;
+      color: #999;
+      font-weight: normal;
+      margin-left: 8px;
+    }
   </style>
 </head>
 <body>
-<h1><img src="icons/icon32.png" alt="VPN Icon" style="width: 24px;position: relative;top: 4px;"> Proxy Manager by seojacky</h1>
+<h1><img src="icons/icon32.png" alt="VPN Icon" style="width: 24px;position: relative;top: 4px;"> Proxy Manager by seojacky<span id="ext-version" class="ext-version"></span></h1>
   <p class="promo">
     Get <a href="https://www.webshare.io/?referral_code=cqjv56e3hysl" target="_blank">10 free proxies</a> to add to the extension
   </p>
@@ -154,15 +160,19 @@
   <div class="section">
     <h3>Proxy List</h3>	
     <div class="format-info">
-      <p>Two formats are supported:</p>
-      <p>1. Standard format: <span class="format-example">host:port:username:password</span></p>
-      <p>2. With type specified: <span class="format-example">type:host:port:username:password</span></p>
-      <p class="note">Type can be 'http' or 'socks5'. If not specified, type will be detected automatically.</p>
+      <p>Supported formats (one per line):</p>
+      <p>1. <span class="format-example">host:port:username:password</span></p>
+      <p>2. <span class="format-example">type:host:port:username:password</span></p>
+      <p>3. <span class="format-example">host:port</span> — local proxy without auth (e.g. Tor)</p>
+      <p>4. <span class="format-example">type:host:port</span> — local proxy with explicit type</p>
+      <p class="note">Type can be 'http' or 'socks5'. If not specified, type is detected automatically by port.</p>
     </div>
     <textarea id="proxyList" placeholder="Examples:
-198.23.239.134:6540:dnrrfarc:cvbnihiajzzt
-http:207.244.217.165:6712:dnrrfarc:cvbnihiajzzt
-socks5:64.137.42.112:1080:dnrrfarc:cvbnihiajzzt"></textarea>
+198.23.239.134:6540:username:password
+http:207.244.217.165:6712:username:password
+socks5:64.137.42.112:1080:username:password
+127.0.0.1:9050
+socks5:127.0.0.1:9050"></textarea>
   </div>
 
   <div class="radio-group section">

@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('ext-version').textContent = 'v.' + chrome.runtime.getManifest().version;
+
     // UI Elements
     const proxyMode = localStorage.getItem('proxyMode') || 'proxyAll';
     const domainList = localStorage.getItem('domainList') || '';
