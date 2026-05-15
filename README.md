@@ -48,6 +48,7 @@
 - ✔️ Instant proxy switching with one click  
 - ✔️ Works with all websites and streaming services  
 - ✔️ No logging, 100% private browsing  
+- ✔️ Automatic update notifications — when a new version is available, a notice appears in the popup and on the Settings page  
 
 ---
 
