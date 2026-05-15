@@ -257,9 +257,20 @@ document.addEventListener('DOMContentLoaded', async function() {
             }
         } catch (e) {}
 
-        fetch('https://api.github.com/repos/seojacky/free-vpn-chrome-extension/branches?per_page=100')
-            .then(function(r) { return r.json(); })
+        const controller = new AbortController();
+        const timeout = setTimeout(function() { controller.abort(); }, 5000);
+
+        fetch('https://api.github.com/repos/seojacky/free-vpn-chrome-extension/branches?per_page=100', {
+            signal: controller.signal
+        })
+            .then(function(r) {
+                clearTimeout(timeout);
+                if (!r.ok) return null;
+                return r.json();
+            })
             .then(function(branches) {
+                if (!branches) return;
+
                 const currentVersion = chrome.runtime.getManifest().version;
                 const sorted = branches
                     .map(function(b) { return b.name; })
@@ -284,7 +295,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
                 if (hasUpdate) showUpdateNotice(latestVersion);
             })
-            .catch(function() {});
+            .catch(function() { clearTimeout(timeout); });
     }
 
     checkForUpdates();
