@@ -147,10 +147,36 @@
       font-weight: normal;
       margin-left: 8px;
     }
+
+    .update-notice {
+      background: #fff8e1;
+      border: 1px solid #ffc107;
+      border-radius: 4px;
+      padding: 10px;
+      margin: 10px 0;
+      text-align: center;
+      font-size: 14px;
+      display: none;
+    }
+
+    .update-notice a {
+      color: #795548;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .update-notice a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
 <h1><img src="icons/icon32.png" alt="VPN Icon" style="width: 24px;position: relative;top: 4px;"> Proxy Manager by seojacky<span id="ext-version" class="ext-version"></span></h1>
+  <div id="update-notice" class="update-notice">
+    <a href="https://github.com/seojacky/free-vpn-chrome-extension/releases/download/latest/free-chrome-vpn-manager-by-seojacky.zip" target="_blank">
+      ↑ New version available: <span id="update-version"></span>
+    </a>
+  </div>
   <p class="promo">
     Get <a href="https://www.webshare.io/?referral_code=cqjv56e3hysl" target="_blank">10 free proxies</a> to add to the extension
   </p>

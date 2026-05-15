@@ -231,7 +231,9 @@ document.addEventListener('DOMContentLoaded', async function() {
     // Инициализация текущего сайта
     updateCurrentSite();
 
-    document.getElementById('ext-version').textContent = 'v.' + chrome.runtime.getManifest().version;
+    const versionEl = document.getElementById('ext-version');
+    const currentVersion = chrome.runtime.getManifest().version;
+    versionEl.textContent = 'v.' + currentVersion + ' (checking...)';
 
     function isNewerVersion(remote, local) {
         const [rMaj, rMin] = remote.split('.').map(Number);
@@ -252,7 +254,9 @@ document.addEventListener('DOMContentLoaded', async function() {
         try {
             const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
             if (cached && Date.now() - cached.checkedAt < CACHE_TTL) {
+                versionEl.textContent = 'v.' + currentVersion;
                 if (cached.latestVersion) showUpdateNotice(cached.latestVersion);
+                console.log('[VPN] Update check from cache:', cached.latestVersion || 'up to date');
                 return;
             }
         } catch (e) {}
@@ -269,9 +273,12 @@ document.addEventListener('DOMContentLoaded', async function() {
                 return r.json();
             })
             .then(function(branches) {
-                if (!branches) return;
+                if (!branches) {
+                    versionEl.textContent = 'v.' + currentVersion;
+                    console.log('[VPN] Update check failed: API error');
+                    return;
+                }
 
-                const currentVersion = chrome.runtime.getManifest().version;
                 const sorted = branches
                     .map(function(b) { return b.name; })
                     .filter(function(name) { return /^\d+\.\d+$/.test(name); })
@@ -281,10 +288,15 @@ document.addEventListener('DOMContentLoaded', async function() {
                         return bMaj - aMaj || bMin - aMin;
                     });
 
-                if (!sorted.length) return;
+                if (!sorted.length) {
+                    versionEl.textContent = 'v.' + currentVersion;
+                    return;
+                }
 
                 const latestVersion = sorted[0];
                 const hasUpdate = isNewerVersion(latestVersion, currentVersion);
+
+                versionEl.textContent = 'v.' + currentVersion;
 
                 try {
                     localStorage.setItem(CACHE_KEY, JSON.stringify({
@@ -293,9 +305,18 @@ document.addEventListener('DOMContentLoaded', async function() {
                     }));
                 } catch (e) {}
 
-                if (hasUpdate) showUpdateNotice(latestVersion);
+                if (hasUpdate) {
+                    showUpdateNotice(latestVersion);
+                    console.log('[VPN] Update available:', latestVersion);
+                } else {
+                    console.log('[VPN] Extension is up to date');
+                }
             })
-            .catch(function() { clearTimeout(timeout); });
+            .catch(function() {
+                clearTimeout(timeout);
+                versionEl.textContent = 'v.' + currentVersion;
+                console.log('[VPN] Update check timeout or error');
+            });
     }
 
     checkForUpdates();

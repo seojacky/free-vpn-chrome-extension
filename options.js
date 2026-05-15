@@ -1,5 +1,93 @@
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('ext-version').textContent = 'v.' + chrome.runtime.getManifest().version;
+    const versionEl = document.getElementById('ext-version');
+    const currentVersion = chrome.runtime.getManifest().version;
+    versionEl.textContent = 'v.' + currentVersion + ' (checking...)';
+
+    function isNewerVersion(remote, local) {
+        const [rMaj, rMin] = remote.split('.').map(Number);
+        const [lMaj, lMin] = local.split('.').map(Number);
+        return rMaj > lMaj || (rMaj === lMaj && rMin > lMin);
+    }
+
+    function showUpdateNotice(version) {
+        const notice = document.getElementById('update-notice');
+        document.getElementById('update-version').textContent = version;
+        notice.style.display = 'block';
+    }
+
+    function checkForUpdates() {
+        const CACHE_KEY = 'chrome-proxy-manager-update-check';
+        const CACHE_TTL = 24 * 60 * 60 * 1000;
+
+        try {
+            const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
+            if (cached && Date.now() - cached.checkedAt < CACHE_TTL) {
+                versionEl.textContent = 'v.' + currentVersion;
+                if (cached.latestVersion) showUpdateNotice(cached.latestVersion);
+                console.log('[VPN-Options] Update check from cache:', cached.latestVersion || 'up to date');
+                return;
+            }
+        } catch (e) {}
+
+        const controller = new AbortController();
+        const timeout = setTimeout(function() { controller.abort(); }, 5000);
+
+        fetch('https://api.github.com/repos/seojacky/free-vpn-chrome-extension/branches?per_page=100', {
+            signal: controller.signal
+        })
+            .then(function(r) {
+                clearTimeout(timeout);
+                if (!r.ok) return null;
+                return r.json();
+            })
+            .then(function(branches) {
+                if (!branches) {
+                    versionEl.textContent = 'v.' + currentVersion;
+                    console.log('[VPN-Options] Update check failed: API error');
+                    return;
+                }
+
+                const sorted = branches
+                    .map(function(b) { return b.name; })
+                    .filter(function(name) { return /^\d+\.\d+$/.test(name); })
+                    .sort(function(a, b) {
+                        const [aMaj, aMin] = a.split('.').map(Number);
+                        const [bMaj, bMin] = b.split('.').map(Number);
+                        return bMaj - aMaj || bMin - aMin;
+                    });
+
+                if (!sorted.length) {
+                    versionEl.textContent = 'v.' + currentVersion;
+                    return;
+                }
+
+                const latestVersion = sorted[0];
+                const hasUpdate = isNewerVersion(latestVersion, currentVersion);
+
+                versionEl.textContent = 'v.' + currentVersion;
+
+                try {
+                    localStorage.setItem(CACHE_KEY, JSON.stringify({
+                        latestVersion: hasUpdate ? latestVersion : null,
+                        checkedAt: Date.now()
+                    }));
+                } catch (e) {}
+
+                if (hasUpdate) {
+                    showUpdateNotice(latestVersion);
+                    console.log('[VPN-Options] Update available:', latestVersion);
+                } else {
+                    console.log('[VPN-Options] Extension is up to date');
+                }
+            })
+            .catch(function() {
+                clearTimeout(timeout);
+                versionEl.textContent = 'v.' + currentVersion;
+                console.log('[VPN-Options] Update check timeout or error');
+            });
+    }
+
+    checkForUpdates();
 
     // UI Elements
     const proxyMode = localStorage.getItem('proxyMode') || 'proxyAll';
