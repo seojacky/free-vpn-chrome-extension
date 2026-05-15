@@ -253,10 +253,10 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         try {
             const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
-            if (cached && Date.now() - cached.checkedAt < CACHE_TTL) {
+            if (cached && cached.latestVersion && Date.now() - cached.checkedAt < CACHE_TTL) {
                 versionEl.textContent = 'v.' + currentVersion;
-                if (cached.latestVersion) showUpdateNotice(cached.latestVersion);
-                console.log('[VPN] Update check from cache:', cached.latestVersion || 'up to date');
+                if (isNewerVersion(cached.latestVersion, currentVersion)) showUpdateNotice(cached.latestVersion);
+                console.log('[VPN] Update check from cache:', cached.latestVersion);
                 return;
             }
         } catch (e) {}
@@ -300,7 +300,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
                 try {
                     localStorage.setItem(CACHE_KEY, JSON.stringify({
-                        latestVersion: hasUpdate ? latestVersion : null,
+                        latestVersion: latestVersion,
                         checkedAt: Date.now()
                     }));
                 } catch (e) {}
@@ -309,7 +309,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                     showUpdateNotice(latestVersion);
                     console.log('[VPN] Update available:', latestVersion);
                 } else {
-                    console.log('[VPN] Extension is up to date');
+                    console.log('[VPN] Up to date, latest:', latestVersion);
                 }
             })
             .catch(function() {

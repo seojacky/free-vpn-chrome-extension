@@ -21,10 +21,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
         try {
             const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
-            if (cached && Date.now() - cached.checkedAt < CACHE_TTL) {
+            if (cached && cached.latestVersion && Date.now() - cached.checkedAt < CACHE_TTL) {
                 versionEl.textContent = 'v.' + currentVersion;
-                if (cached.latestVersion) showUpdateNotice(cached.latestVersion);
-                console.log('[VPN-Options] Update check from cache:', cached.latestVersion || 'up to date');
+                if (isNewerVersion(cached.latestVersion, currentVersion)) showUpdateNotice(cached.latestVersion);
+                console.log('[VPN-Options] Update check from cache:', cached.latestVersion);
                 return;
             }
         } catch (e) {}
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 try {
                     localStorage.setItem(CACHE_KEY, JSON.stringify({
-                        latestVersion: hasUpdate ? latestVersion : null,
+                        latestVersion: latestVersion,
                         checkedAt: Date.now()
                     }));
                 } catch (e) {}
