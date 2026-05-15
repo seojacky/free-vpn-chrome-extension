@@ -225,6 +225,27 @@
       color: #999;
       margin-top: 6px;
     }
+
+    .update-notice {
+      background: #fff8e1;
+      border: 1px solid #ffc107;
+      border-radius: 4px;
+      padding: 5px 8px;
+      margin-top: 5px;
+      text-align: center;
+      font-size: 11px;
+      display: none;
+    }
+
+    .update-notice a {
+      color: #795548;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .update-notice a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
@@ -257,6 +278,11 @@
 
   <button id="openSettings" class="settings-btn">Settings</button>
   <span id="ext-version" class="ext-version"></span>
+  <div id="update-notice" class="update-notice">
+    <a href="https://github.com/seojacky/free-vpn-chrome-extension/releases/download/latest/free-chrome-vpn-manager-by-seojacky.zip" target="_blank">
+      ↑ New version available: <span id="update-version"></span>
+    </a>
+  </div>
 
   <script src="functions.js"></script>
   <script src="popup.js"></script>

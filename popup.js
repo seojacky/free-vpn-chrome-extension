@@ -232,4 +232,60 @@ document.addEventListener('DOMContentLoaded', async function() {
     updateCurrentSite();
 
     document.getElementById('ext-version').textContent = 'v.' + chrome.runtime.getManifest().version;
+
+    function isNewerVersion(remote, local) {
+        const [rMaj, rMin] = remote.split('.').map(Number);
+        const [lMaj, lMin] = local.split('.').map(Number);
+        return rMaj > lMaj || (rMaj === lMaj && rMin > lMin);
+    }
+
+    function showUpdateNotice(version) {
+        const notice = document.getElementById('update-notice');
+        document.getElementById('update-version').textContent = version;
+        notice.style.display = 'block';
+    }
+
+    function checkForUpdates() {
+        const CACHE_KEY = 'chrome-proxy-manager-update-check';
+        const CACHE_TTL = 24 * 60 * 60 * 1000;
+
+        try {
+            const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
+            if (cached && Date.now() - cached.checkedAt < CACHE_TTL) {
+                if (cached.latestVersion) showUpdateNotice(cached.latestVersion);
+                return;
+            }
+        } catch (e) {}
+
+        fetch('https://api.github.com/repos/seojacky/free-vpn-chrome-extension/branches?per_page=100')
+            .then(function(r) { return r.json(); })
+            .then(function(branches) {
+                const currentVersion = chrome.runtime.getManifest().version;
+                const sorted = branches
+                    .map(function(b) { return b.name; })
+                    .filter(function(name) { return /^\d+\.\d+$/.test(name); })
+                    .sort(function(a, b) {
+                        const [aMaj, aMin] = a.split('.').map(Number);
+                        const [bMaj, bMin] = b.split('.').map(Number);
+                        return bMaj - aMaj || bMin - aMin;
+                    });
+
+                if (!sorted.length) return;
+
+                const latestVersion = sorted[0];
+                const hasUpdate = isNewerVersion(latestVersion, currentVersion);
+
+                try {
+                    localStorage.setItem(CACHE_KEY, JSON.stringify({
+                        latestVersion: hasUpdate ? latestVersion : null,
+                        checkedAt: Date.now()
+                    }));
+                } catch (e) {}
+
+                if (hasUpdate) showUpdateNotice(latestVersion);
+            })
+            .catch(function() {});
+    }
+
+    checkForUpdates();
 });
