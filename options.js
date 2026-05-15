@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const versionEl = document.getElementById('ext-version');
     const currentVersion = chrome.runtime.getManifest().version;
-    versionEl.textContent = 'v.' + currentVersion + ' (checking...)';
+    versionEl.textContent = 'v.' + currentVersion;
 
     function isNewerVersion(remote, local) {
         const [rMaj, rMin] = remote.split('.').map(Number);
@@ -24,7 +24,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (cached && cached.latestVersion && Date.now() - cached.checkedAt < CACHE_TTL) {
                 versionEl.textContent = 'v.' + currentVersion;
                 if (isNewerVersion(cached.latestVersion, currentVersion)) showUpdateNotice(cached.latestVersion);
-                console.log('[VPN-Options] Update check from cache:', cached.latestVersion);
                 return;
             }
         } catch (e) {}
@@ -43,8 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(function(branches) {
                 if (!branches) {
                     versionEl.textContent = 'v.' + currentVersion;
-                    console.log('[VPN-Options] Update check failed: API error');
-                    return;
+return;
                 }
 
                 const sorted = branches
@@ -75,15 +73,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 if (hasUpdate) {
                     showUpdateNotice(latestVersion);
-                    console.log('[VPN-Options] Update available:', latestVersion);
-                } else {
-                    console.log('[VPN-Options] Extension is up to date');
                 }
             })
             .catch(function() {
                 clearTimeout(timeout);
                 versionEl.textContent = 'v.' + currentVersion;
-                console.log('[VPN-Options] Update check timeout or error');
             });
     }
 
